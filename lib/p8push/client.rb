@@ -10,23 +10,23 @@ module P8push
   class Client
     attr_accessor :jwt_uri
     class << self
-      def development
-        client = self.new
+      def development(apn_private_key, apn_team_id, apn_key_id)
+        client = self.new(apn_private_key, apn_team_id, apn_key_id)
         client.jwt_uri = APPLE_DEVELOPMENT_JWT_URI
         client
       end
 
-      def production
-        client = self.new
+      def production(apn_private_key, apn_team_id, apn_key_id)
+        client = self.new(apn_private_key, apn_team_id, apn_key_id)
         client.jwt_uri = APPLE_PRODUCTION_JWT_URI
         client
       end
     end
 
-    def initialize
-      @private_key = Base64.decode64(ENV['APN_PRIVATE_KEY'])
-      @team_id = ENV['APN_TEAM_ID']
-      @key_id = ENV['APN_KEY_ID']
+    def initialize(apn_private_key, apn_team_id, apn_key_id)
+      @private_key = apn_private_key
+      @team_id = apn_team_id
+      @key_id = apn_key_id
       @timeout = Float(ENV['APN_TIMEOUT'] || 2.0)
     end
 
