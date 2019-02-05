@@ -24,7 +24,7 @@ module P8push
     end
 
     def initialize(apn_private_key, apn_team_id, apn_key_id)
-      @private_key = apn_private_key
+      @private_key = Base64.decode64(apn_private_key)
       @team_id = apn_team_id
       @key_id = apn_key_id
       @timeout = Float(ENV['APN_TIMEOUT'] || 2.0)
